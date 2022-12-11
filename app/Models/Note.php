@@ -14,6 +14,7 @@ class Note extends Model
         'title',
         'content',
         'color',
+        'user',
     ];
 
     public function files() {

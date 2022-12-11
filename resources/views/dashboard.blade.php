@@ -34,6 +34,9 @@
                             <textarea class="form-control" name="content" cols="50" rows="4" required></textarea>
                             <label>Cor de fundo:</label>
                             <input class="form-control" type="color" value="#FFFFFF" name="color">
+
+                            <input class="form-control" type="hidden" value="{{ Auth::user()->name }}" name="user">
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -70,6 +73,10 @@
             @forelse($notes as $note)
                 <div class="card border border-2 shadow p-3 col-12 col-md-6 col-lg-4"
                     style="background-color: {{ $note->color }}95;">
+                    <div class="card-header" style="background-color: {{ $note->color }}45;">
+                      <small style="color: lightsteelblue">Postado por {{ $note->user }}</small>
+
+                    </div>
                     <div class="card-header" style="background-color: {{ $note->color }}45;">
                         {{ $note->title }}
                     </div>
