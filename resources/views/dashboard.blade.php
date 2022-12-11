@@ -3,15 +3,18 @@
 @section('content')
     <div class="container d-flex flex-wrap gap-2 justify-content-between
         bg-light border border-2 p-3 my-4">
-        <form class="d-flex flex-wrap gap-1" method="get"
-            action="{{ route('dashboard') }}">
-            <input class="form-control w-auto" type="text" name="search" placeholder="Pesquisar">
-            <button class="btn btn-secondary" type="submit">Pesquisar</button>
+        <form class="d-flex flex-wrap gap-1" method="get" action="{{ route('dashboard') }}">
+            <input class="search-field form-control me-2" style="color:black" type="text" placeholder="Procurar" aria-label="Search"
+                name="search">
+            <button class="btn btn-outline search-submit" style="border-color: #FA4EAB; color: #FA4EAB"
+                type="submit">Procurar</button>
+
         </form>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#criarAnotacao">
-            Criar Anotação
+        <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
+            data-bs-target="#criarAnotacao">
+            Postar review
         </button>
 
         <!-- Modal -->
@@ -19,18 +22,18 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="criarAnotacaoLabel">Criar Anotação</h1>
+                        <h1 class="modal-title fs-5" id="criarAnotacaoLabel">Review</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{{ route('create.note') }}" method="post">
                         @csrf
                         <div class="modal-body">
                             <label>Título:</label>
-                            <input class="form-control" type="text" name="title">
-                            <label>Conteúdo:</label>
-                            <textarea class="form-control" name="content" cols="30" rows="4"></textarea>
-                            <label>Cor:</label>
-                            <input class="form-control" type="color" name="color">
+                            <input class="form-control" type="text" name="title" required>
+                            <label>Assunto:</label>
+                            <textarea class="form-control" name="content" cols="50" rows="4" required></textarea>
+                            <label>Cor de fundo:</label>
+                            <input class="form-control" type="color" value="#FFFFFF" name="color">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -54,7 +57,7 @@
             </div>
         @endif
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Sucesso!</strong> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -75,9 +78,8 @@
                     </div>
                     <div class="border border-1 rounded shadow-sm p-2 mb-2">
                         {{-- Formulário de envio de arquivos --}}
-                        <form class="d-flex gap-2"
-                            action="{{ route('upload.file', ['id' => $note->id]) }}"
-                            method="post" enctype="multipart/form-data">
+                        <form class="d-flex gap-2" action="{{ route('upload.file', ['id' => $note->id]) }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
                             <input class="form-control" type="file" name="file">
                             <button class="btn btn-primary">Enviar</button>
@@ -91,8 +93,7 @@
                                         src="{{ url('storage/' . $file->directory) }}">
                                     <div class="col-2 d-flex flex-wrap gap-2">
                                         {{-- Baixar arquivo --}}
-                                        <form method="post"
-                                            action="{{ route('download.file', ['id' => $file->id]) }}">
+                                        <form method="post" action="{{ route('download.file', ['id' => $file->id]) }}">
                                             @csrf
                                             <button class="btn btn-info" type="submit">Baixar</button>
                                         </form>
@@ -114,8 +115,8 @@
                     <div class="d-flex flex-wrap gap-2 justify-content-end">
                         {{-- Edição --}}
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editar_anotacao"
-                        data-bs-note="{{ json_encode($note) }}">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#editar_anotacao" data-bs-note="{{ json_encode($note) }}">
                             Editar
                         </button>
 
@@ -128,7 +129,7 @@
                 </div>
             @empty
                 <div class="alert alert-danger">
-                    Nenhuma anotação cadastrada!
+                    Muito vazio por aqui...
                 </div>
             @endforelse
         </div>

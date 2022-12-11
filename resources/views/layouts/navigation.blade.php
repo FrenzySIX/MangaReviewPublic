@@ -35,16 +35,14 @@
                         <a class="nav-link">Link</a>
                     </li>
                 </ul>
-                    <form class="d-flex" role="search" class="search-form">
-                        <input class="search-field form-control me-2" type="search" placeholder="Procurar"
-                            aria-label="Search" value="" name="s">
-                        <button class="btn btn-outline-success search-submit" type="submit">Procurar</button>
-                    </form>
+
+
                 <div class="dropdown d-flex justify-content-end col-2">
                     @if (Route::has('login'))
                         @auth
-                            <a class="dropdown-toggle btn btn-outline-secondary rounded" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="dropdown-toggle btn btn-outline-secondary rounded" style="border-color: #FA4EAB"
+                                href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
                                 {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end col-2" aria-labelledby="navbarDropdown">
@@ -53,26 +51,29 @@
                                         @csrf
                                         <button class="dropdown-item" type="submit">Sair</button>
                                     </form>
-                                    <a href="{{ url('/dashboard') }}"
-                                        class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                                    <a href="{{ url('/dashboard') }}" class="dropdown-item"
+                                        style="text-decoration: none; color: black">Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('users.edit', Auth::user()->id) }}"
-                                        class="text-sm text-gray-700 dark:text-gray-500 underline">Editar</a>
+                                    <a href="{{ route('users.edit', Auth::user()->id) }}" class="dropdown-item"
+                                        style="text-decoration: none; color: black">Editar</a>
                                 </li>
                             </ul>
                         @else
-                            <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log
+                            <a href="{{ route('login') }}" class="dropdown-item"
+                                style="text-decoration: none; color: bla">Log
                                 in</a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}"
-                                    class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                                <a href="{{ route('register') }}" class="ml-4 dropdown-item"
+                                    style="text-decoration: none; color: blac">Register</a>
                             @endif
                         @endauth
                     @endif
                 </div>
+
             </div>
+
         </div>
     </div>
 </nav>
