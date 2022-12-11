@@ -4,8 +4,8 @@
     <div class="container d-flex flex-wrap gap-2 justify-content-between
         bg-light border border-2 p-3 my-4">
         <form class="d-flex flex-wrap gap-1" method="get" action="{{ route('dashboard') }}">
-            <input class="search-field form-control me-2" style="color:black" type="text" placeholder="Procurar"
-                aria-label="Search" name="search">
+            <input class="search-field form-control me-2" style="color:black" type="text" placeholder="Procurar" aria-label="Search"
+                name="search">
             <button class="btn btn-outline search-submit" style="border-color: #FA4EAB; color: #FA4EAB"
                 type="submit">Procurar</button>
 
@@ -15,11 +15,6 @@
         <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
             data-bs-target="#criarAnotacao">
             Postar review
-        </button>
-
-        <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
-            data-bs-target="#criarimagem">
-            Postar imagem
         </button>
 
         <!-- Modal -->
@@ -51,25 +46,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="criarimagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-body">
-                    <div class="border border-1 rounded shadow-sm p-2 mb-2">
-                        {{-- Formulário de envio de arquivos --}}
-                        <form class="d-flex gap-2" action="{{ route('upload.file') }}"
-                            method="post" enctype="multipart/form-data">
-                            @csrf
-                            <input class="form-control" type="file" name="file">
-                            <button class="btn btn-primary">Enviar</button>
-                        </form>
-                    </div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -100,7 +76,42 @@
                     <div class="card-body">
                         {{ $note->content }}
                     </div>
+                    <div class="border border-1 rounded shadow-sm p-2 mb-2">
+                        {{-- Formulário de envio de arquivos --}}
+                        <form class="d-flex gap-2" action="{{ route('upload.file', ['id' => $note->id]) }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <input class="form-control" type="file" name="file">
+                            <button class="btn btn-primary">Enviar</button>
+                        </form>
 
+                        {{-- Exibir os arquivos --}}
+                        <div class="p-2 overflow-auto" style="max-height: 200px;">
+                            @forelse ($note->files as $file)
+                                <div class="row g-2 shadow-sm p-2">
+                                    <img class="col-10 img-fluid" style="width: 150px; height: 100px;"
+                                        src="{{ url('storage/' . $file->directory) }}">
+                                    <div class="col-2 d-flex flex-wrap gap-2">
+                                        {{-- Baixar arquivo --}}
+                                        <form method="post" action="{{ route('download.file', ['id' => $file->id]) }}">
+                                            @csrf
+                                            <button class="btn btn-info" type="submit">Baixar</button>
+                                        </form>
+
+                                        {{-- Excluir arquivo --}}
+                                        <form action="{{ route('delete.file', ['id' => $file->id]) }}" method="post">
+                                            @csrf
+                                            <button class="btn btn-danger" type="submit">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="">Nenhum arquivo anexado!</div>
+                            @endforelse
+                        </div>
+                    </div>
                     <div class="d-flex flex-wrap gap-2 justify-content-end">
                         {{-- Edição --}}
                         <!-- Button trigger modal -->
@@ -122,36 +133,8 @@
                 </div>
             @endforelse
         </div>
-
     </div>
 
-           {{-- Exibir os arquivos --}}
-           <div class="p-2 overflow-auto" style="max-height: 200px;">
-            @forelse ($note->files as $file)
-                <div class="row g-2 shadow-sm p-2">
-                    <img class="col-10 img-fluid" style="width: 150px; height: 100px;"
-                        src="{{ url('storage/' . $file->directory) }}">
-                    <div class="col-2 d-flex flex-wrap gap-2">
-                        {{-- Baixar arquivo --}}
-                        <form method="post" action="{{ route('download.file', ['id' => $file->id]) }}">
-                            @csrf
-                            <button class="btn btn-info" type="submit">Baixar</button>
-                        </form>
-
-                        {{-- Excluir arquivo --}}
-                        <form action="{{ route('delete.file', ['id' => $file->id]) }}" method="post">
-                            @csrf
-                            <button class="btn btn-danger" type="submit">
-                                Excluir
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            @empty
-                <div class="">Nenhum arquivo anexado!</div>
-            @endforelse
-        </div>
-        
     <!-- Modal -->
     <div class="modal fade" id="editar_anotacao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
