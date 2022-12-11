@@ -30,6 +30,12 @@ Route::post('exluir_arquivo', [NoteController::class, 'deleteFile'])
 Route::post('baixar_arquivo', [NoteController::class, 'downloadFile'])
     ->middleware(['auth'])->name('download.file');
 
+Route::get('/users', [EditLoginController::class , 'index'])
+    ->name('users.index');
+
+Route::get('/users/{id}', [EditLoginController::class , 'show'])
+    ->name('users.show');
+
 Route::get('/users/{id}/edit', [EditLoginController::class , 'edit'])
     ->name('users.edit');
 

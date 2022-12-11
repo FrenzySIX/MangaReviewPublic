@@ -1,0 +1,21 @@
+li {
+    font-family: 'Cinzel', serif;
+}
+
+h1 {
+    font-family: 'Fauna One', serif;
+}
+
+.table a{
+    text-decoration: none; color: rgb(255, 255, 255)
+}
+
+.table button{
+    border: #FA4EAB 2px solid;
+    background: none;
+    border-radius: 5px;
+}
+
+a{
+    text-decoration: none; color: black
+}

@@ -4,10 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class EditLoginController extends Controller
 {
+    public function index()
+    {
+        $users = User::get();
+
+        return view('index', compact('users'));
+    }
+
+    public function show($id)
+    {
+        // $user = User::where('id', $id)->get();
+        if(!$user = User::find($id))
+            return redirect()->route('index');
+
+        return view('show', compact('user'));
+    }
+
     public function edit($id)
     {
         if (!$user = User::find($id))
