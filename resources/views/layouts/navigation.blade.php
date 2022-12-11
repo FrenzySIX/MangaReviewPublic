@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid row d-flex justify-content-center">
         <div class="col-md-8">
-            <a class="navbar-brand" href="{{ route('welcome') }}">Logo</a>
+            <a class="navbar-brand" href="{{ route('welcome') }}">Manga Review</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -12,28 +12,23 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" aria-current="page" href="#">Início</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Sobre nós</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Link
+                            Mangás
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="#">Categorias</a></li>
+                            <li><a class="dropdown-item" href="#">Recomendações</a></li>
+                            <li><a class="dropdown-item" href="#">Todos</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Link</a>
-                    </li>
+
                 </ul>
 
 
@@ -61,12 +56,11 @@
                             </ul>
                         @else
                             <a href="{{ route('login') }}" class="dropdown-item"
-                                style="text-decoration: none; color: bla">Log
-                                in</a>
+                                style="text-decoration: none; color: bla">Log-in</a>
 
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="ml-4 dropdown-item"
-                                    style="text-decoration: none; color: blac">Register</a>
+                                    style="text-decoration: none; color: blac">Criar conta</a>
                             @endif
                         @endauth
                     @endif
