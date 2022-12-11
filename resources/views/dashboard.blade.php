@@ -4,8 +4,8 @@
     <div class="container d-flex flex-wrap gap-2 justify-content-between
         bg-light border border-2 p-3 my-4">
         <form class="d-flex flex-wrap gap-1" method="get" action="{{ route('dashboard') }}">
-            <input class="search-field form-control me-2" style="color:black" type="text" placeholder="Procurar" aria-label="Search"
-                name="search">
+            <input class="search-field form-control me-2" style="color:black" type="text" placeholder="Procurar"
+                aria-label="Search" name="search">
             <button class="btn btn-outline search-submit" style="border-color: #FA4EAB; color: #FA4EAB"
                 type="submit">Procurar</button>
 
@@ -32,8 +32,8 @@
                             <input class="form-control" type="text" name="title" required>
                             <label>Assunto:</label>
                             <textarea class="form-control" name="content" cols="50" rows="4" required></textarea>
-                            <label>Cor de fundo:</label>
-                            <input class="form-control" type="color" value="#FFFFFF" name="color">
+
+                            <input class="form-control" type="hidden" value="#FFFFFF" name="color">
 
                             <input class="form-control" type="hidden" value="{{ Auth::user()->name }}" name="user">
 
@@ -74,7 +74,7 @@
                 <div class="card border border-2 shadow p-3 col-12 col-md-6 col-lg-4"
                     style="background-color: {{ $note->color }}95;">
                     <div class="card-header" style="background-color: {{ $note->color }}45;">
-                      <small style="color: lightsteelblue">Postado por {{ $note->user }}</small>
+                        <small style="color: lightsteelblue">Postado por {{ $note->user }}</small>
 
                     </div>
                     <div class="card-header" style="background-color: {{ $note->color }}45;">
@@ -119,20 +119,23 @@
                             @endforelse
                         </div>
                     </div>
-                    <div class="d-flex flex-wrap gap-2 justify-content-end">
-                        {{-- Edição --}}
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#editar_anotacao" data-bs-note="{{ json_encode($note) }}">
-                            Editar
-                        </button>
+                    @if (Auth::user()->name == $note->user)
+                        <div class="d-flex flex-wrap gap-2 justify-content-end">
+                            {{-- Edição --}}
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#editar_anotacao" data-bs-note="{{ json_encode($note) }}">
+                                Editar
+                            </button>
 
-                        {{-- Exclusão --}}
-                        <form action="{{ route('delete.note', ['id' => $note->id]) }}" method="post">
-                            @csrf
-                            <button class="btn btn-danger" type="submit">Excluir</button>
-                        </form>
-                    </div>
+                            {{-- Exclusão --}}
+                            <form action="{{ route('delete.note', ['id' => $note->id]) }}" method="post">
+                                @csrf
+                                <button class="btn btn-danger" type="submit">Excluir</button>
+                            </form>
+                        </div>
+                    @endif
+
                 </div>
             @empty
                 <div class="alert alert-danger">
