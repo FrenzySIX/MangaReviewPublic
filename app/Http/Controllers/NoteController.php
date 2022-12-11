@@ -32,7 +32,7 @@ class NoteController extends Controller
         $note['user_id'] = Auth::user()->id;
         Note::create($note);
 
-        return back()->with(['success' => 'Anotação criada com sucesso!']);
+        return back()->with(['success' => 'Review criada com sucesso!']);
     }
 
     public function update(Request $request) {
@@ -48,11 +48,11 @@ class NoteController extends Controller
 
         Note::find($request->id)->update($note);
 
-        return back()->with(['success' => 'Anotação editada com sucesso!']);
+        return back()->with(['success' => 'Review editada com sucesso!']);
     }
 
     public function delete(Request $request) {
-        // Excluir arquivos relacionados à anotação
+        // Excluir arquivos relacionados à Review
         $files = File::where('note_id', $request->id)->get();
         foreach ($files as $file) {
             if (Storage::exists($file->directory)) // Verificar se existe o arquivo
@@ -61,7 +61,7 @@ class NoteController extends Controller
 
         Note::find($request->id)->delete();
 
-        return back()->with(['success' => 'Anotação excluída com sucesso!']);
+        return back()->with(['success' => 'Review excluída com sucesso!']);
     }
 
     public function uploadFile(Request $request) {
@@ -77,19 +77,19 @@ class NoteController extends Controller
 
         File::create(['note_id' => $request->id, 'directory' => $directory]);
 
-        return back()->with(['success' => 'Arquivo salvo com sucesso!']);
+        return back()->with(['success' => 'Imagem salva com sucesso!']);
     }
 
     public function deleteFile(Request $request) {
         $file = File::find($request->id);
 
-        if (Storage::exists($file->directory)) // Verificar se existe o arquivo
-            Storage::delete($file->directory); // Excluir arquivo
+        if (Storage::exists($file->directory)) // Verificar se existe o Imagem
+            Storage::delete($file->directory); // Excluir Imagem
 
         // Ecluir dados na tabela
         $file->delete();
 
-        return back()->with(['success' => 'Arquivo excluído com sucesso!']);
+        return back()->with(['success' => 'Imagem excluída com sucesso!']);
     }
 
     public function downloadFile(Request $request) {
