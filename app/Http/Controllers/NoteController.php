@@ -15,7 +15,7 @@ class NoteController extends Controller
             ->where('title', 'LIKE', '%'.$request->search.'%')
             ->orWhere('content', 'LIKE', '%'.$request->search.'%')
             ->orderBy('created_at', 'DESC')
-            ->paginate(3);
+            ->paginate(6);
         return view('dashboard', compact('notes'));
     }
 

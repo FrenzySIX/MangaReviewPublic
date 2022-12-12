@@ -30,14 +30,6 @@
                     </li>
                 </ul>
 
-                @if (Route::current()->getName() == 'welcome')
-                    <form class="d-flex" class="search-form" method="get" action="{{ route('welcome') }}">
-                        <input class="search-field form-control me-2" type="search" placeholder="Procurar"
-                            aria-label="Search" value="" name="search">
-                        <button class="btn btn-outline-success search-submit" type="submit"
-                            style="border-color: #FA4EAB; color: #FA4EAB">Procurar</button>
-                    </form>
-                @endif
 
                 <div class="dropdown d-flex justify-content-end col-2">
                     @if (Route::has('login'))
@@ -68,13 +60,18 @@
                                 </li>
                             </ul>
                         @else
-                            <a href="{{ route('login') }}" class="dropdown-item"
-                                style="text-decoration: none; color: bla">Log-in</a>
-
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4 dropdown-item"
-                                    style="text-decoration: none; color: blac">Criar conta</a>
-                            @endif
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="{{ route('login') }}" class="dropdown-item"
+                                        style="text-decoration: none; color: bla">Log-in</a>
+                                </div>
+                                @if (Route::has('register'))
+                                    <div class="col-6">
+                                        <a href="{{ route('register') }}" class="ml-4 dropdown-item"
+                                            style="text-decoration: none; color: blac">Criar conta</a>
+                                    </div>
+                                @endif
+                            </div>
                         @endauth
                     @endif
                 </div>

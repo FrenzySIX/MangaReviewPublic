@@ -3,7 +3,7 @@
 use App\Http\Controllers\EditLoginController;
 use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ImageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,16 +30,21 @@ Route::post('exluir_arquivo', [NoteController::class, 'deleteFile'])
 Route::post('baixar_arquivo', [NoteController::class, 'downloadFile'])
     ->middleware(['auth'])->name('download.file');
 
-Route::get('/users', [EditLoginController::class , 'index'])
+Route::get('/users', [EditLoginController::class, 'index'])
     ->name('users.index');
 
-Route::get('/users/{id}', [EditLoginController::class , 'show'])
+Route::get('/users/{id}', [EditLoginController::class, 'show'])
     ->name('users.show');
 
-Route::get('/users/{id}/edit', [EditLoginController::class , 'edit'])
+Route::get('/users/{id}/edit', [EditLoginController::class, 'edit'])
     ->name('users.edit');
 
-Route::put('/users/{id}', [EditLoginController::class , 'updateLogin'])
+Route::put('/users/{id}', [EditLoginController::class, 'updateLogin'])
     ->name('users.update');
 
-require __DIR__.'/auth.php';
+Route::controller(ImageController::class)->group(function () {
+    Route::get('/image-upload', 'index')->name('image.form');
+    Route::post('/upload-image', 'storeImage')->name('image.store');
+});
+
+require __DIR__ . '/auth.php';
