@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\EditLoginController;
 use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
@@ -30,10 +31,17 @@ Route::post('exluir_arquivo', [NoteController::class, 'deleteFile'])
 Route::post('baixar_arquivo', [NoteController::class, 'downloadFile'])
     ->middleware(['auth'])->name('download.file');
 
-Route::get('/users/{id}/edit', [EditLoginController::class , 'edit'])
+Route::get('/users/{id}/edit', [EditLoginController::class, 'edit'])
     ->name('users.edit');
 
-Route::put('/users/{id}', [EditLoginController::class , 'updateLogin'])
+Route::put('/users/{id}', [EditLoginController::class, 'updateLogin'])
     ->name('users.update');
 
-require __DIR__.'/auth.php';
+    Route::get('/add-image',[ImageUploadController::class,'addImage'])->name('images.add');
+    
+    //For storing an image
+    Route::post('/store-image',[ImageUploadController::class,'storeImage'])
+    ->name('images.store');
+    
+    //For showing an image
+    Route::get('/view-image',[ImageUploadController::class,'viewImage'])->name('images.view');

@@ -46,8 +46,10 @@
                                         @csrf
                                         <button class="dropdown-item" type="submit">Sair</button>
                                     </form>
+                                </li>
+                                <li>
                                     <a href="{{ url('/dashboard') }}" class="dropdown-item"
-                                        style="text-decoration: none; color: black">Dashboard</a>
+                                        style="text-decoration: none; color: black">Feed</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('users.edit', Auth::user()->id) }}" class="dropdown-item"

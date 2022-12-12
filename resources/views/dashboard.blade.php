@@ -12,10 +12,33 @@
         </form>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
-            data-bs-target="#criarAnotacao">
-            Postar review
-        </button>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
+                    data-bs-target="#criarAnotacao">
+                    Postar review
+                </button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn" style="background-color: #FA4EAB; padding-right: 10%; padding-left: 10%" data-bs-toggle="modal"
+                    data-bs-target="#criarImagem">
+                    Postar imagem
+                </button>
+            </div>
+        </div>
+        <div class="modal fade" id="criarImagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Postar Imagem</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                 
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="criarAnotacao" tabindex="-1" aria-labelledby="criarAnotacaoLabel" aria-hidden="true">
@@ -69,6 +92,7 @@
 
         {{ $notes->appends(['search' => request()->get('search')])->links('vendor.pagination.bootstrap-4') }}
 
+
         <div class="row flex-wrap justify-content-start g-2">
             @forelse($notes as $note)
                 <div class="card border border-2 shadow p-3 col-12 col-md-6 col-lg-4"
@@ -83,42 +107,43 @@
                     <div class="card-body">
                         {{ $note->content }}
                     </div>
-                    <div class="border border-1 rounded shadow-sm p-2 mb-2">
+                    {{-- <div class="border border-1 rounded shadow-sm p-2 mb-2">
                         {{-- Formulário de envio de arquivos --}}
-                        <form class="d-flex gap-2" action="{{ route('upload.file', ['id' => $note->id]) }}" method="post"
-                            enctype="multipart/form-data">
+                    {{-- <form class="d-flex gap-2" action="{{ route('upload.file', ['id' => $note->id]) }}"
+                            method="post" enctype="multipart/form-data">
                             @csrf
                             <input class="form-control" type="file" name="file">
                             <button class="btn btn-primary">Enviar</button>
-                        </form>
+                        </form>  --}}
 
+
+                    {{-- 
                         {{-- Exibir os arquivos --}}
-                        <div class="p-2 overflow-auto" style="max-height: 200px;">
+                    {{-- <div class="p-2 overflow-auto" style="max-height: 200px;">
                             @forelse ($note->files as $file)
                                 <div class="row g-2 shadow-sm p-2">
                                     <img class="col-10 img-fluid" style="width: 150px; height: 100px;"
                                         src="{{ url('storage/' . $file->directory) }}">
                                     <div class="col-2 d-flex flex-wrap gap-2">
                                         {{-- Baixar arquivo --}}
-                                        <form method="post" action="{{ route('download.file', ['id' => $file->id]) }}">
+                    {{-- <form method="post" action="{{ route('download.file', ['id' => $file->id]) }}">
                                             @csrf
                                             <button class="btn btn-info" type="submit">Baixar</button>
-                                        </form>
-
-                                        {{-- Excluir arquivo --}}
-                                        <form action="{{ route('delete.file', ['id' => $file->id]) }}" method="post">
+                                        </form> --}}
+                    {{-- Excluir arquivo --}}
+                    {{-- <form action="{{ route('delete.file', ['id' => $file->id]) }}" method="post">
                                             @csrf
                                             <button class="btn btn-danger" type="submit">
                                                 Excluir
                                             </button>
                                         </form>
                                     </div>
-                                </div>
-                            @empty
+                                </div> --}}
+                    {{-- @empty
                                 <div class="">Nenhum arquivo anexado!</div>
                             @endforelse
-                        </div>
-                    </div>
+                      </div> 
+                    </div> --}}
                     @if (Auth::user()->name == $note->user)
                         <div class="d-flex flex-wrap gap-2 justify-content-end">
                             {{-- Edição --}}
@@ -150,7 +175,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('update.note') }}" method="post">
