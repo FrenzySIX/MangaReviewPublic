@@ -12,15 +12,20 @@
         </form>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
-            data-bs-target="#criarAnotacao">
-            Postar review
-        </button>
-
-        <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
-            data-bs-target="#criarImagem">
-            Postar imagem
-        </button>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
+                    data-bs-target="#criarAnotacao">
+                    Review
+                </button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn" style="background-color: #FA4EAB" data-bs-toggle="modal"
+                    data-bs-target="#criarImagem">
+                    Imagem
+                </button>
+            </div>
+        </div>
 
         <div class="modal fade" id="criarImagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -47,7 +52,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Upload</button>
+                        <button type="submit" class="btn btn-primary">Criar</button>
                         </form>
                     </div>
                 </div>
