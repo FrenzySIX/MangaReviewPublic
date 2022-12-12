@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url('/css/nav.css') }}" />
 
 
-<nav class="navbar navbar-expand-lg">
+<nav id="nav" class="navbar navbar-expand-lg">
     <div class="container-fluid row d-flex justify-content-center">
         <div class="col-md-8">
             <a class="navbar-brand" href="{{ route('welcome') }}">Manga Review</a>
